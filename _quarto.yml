@@ -1,8 +1,13 @@
 project: 
-  type: manuscript 
+  type: manuscript
+  output-dir: docs
   
 manuscript: 
   article: Lab_7.qmd
+  
+title: "Lab_7"
+bibliography: references.bib
+csl: apa-6th-edition.csl
   
 author:
   - name: "Ainsley Denham"

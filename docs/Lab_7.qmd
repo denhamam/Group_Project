@@ -4,7 +4,6 @@ authors:
   - name: "Ainsley Denham" 
   - name: "Ava Medalinski"
   - name: "Melissa May"
-bibliography: references.bib
 ---
 
 #Introduction 
