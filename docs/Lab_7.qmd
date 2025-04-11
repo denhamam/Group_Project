@@ -1,0 +1,147 @@
+---
+project:
+  title: "Exploring the Correlation Between Toxic Chemical Release and Public Health Outcomes in Colorado"
+  output-dir:  docs
+  type: website
+  authors:
+    - Ainsley Denham
+    - Ava Madalinski
+    - Melissa May
+  
+format:
+  html:
+    self-contained: true
+---
+
+#Introduction 
+
+Every day, Colorado residents are subjected to numerous chemical exposures in their surrounding environment – through the air they breathe, water they consume, soil that grows their food, and their various occupational settings. Despite this near-constant exposure, our understanding of how to effectively track these diverse chemicals and evaluate their associated health risks remains inadequate (Silins & Högberg, 2011). The improper management of toxic substances and their unregulated release into ecosystems creates significant public health challenges, contributing to various adverse outcomes ranging from acute poisonings to chronic diseases and increased mortality rates throughout communities worldwide (Adeola, 2020).
+
+The relationship between chemical exposure and health outcomes is shaped by complex dose-response patterns. As Adeola (2020) emphasizes, while these substances can enhance quality of life when properly utilized, excessive exposure often leads to severe consequences – including death, persistent disabilities, reproductive complications, and various chronic conditions. This delicate balance underscores the urgency of investigating connections between environmental chemical releases and observable health patterns in exposed populations.
+
+One major challenge in understanding these relationships stems from the complexity of real-world chemical exposures. Most toxicological research examines individual chemicals in isolation, yet environmental exposures always involve mixtures of chemicals rather than single compounds. As noted in the literature, when multiple substances interact within biological systems, they may produce additive, nonadditive, or even synergistic effects, where the combined impacts exceed the sum of individual effects. These interactions become exponentially more complex as the number of chemicals increases, with each mixture potentially producing unique outcomes depending on its specific composition (Carpenter et al., 2002). This complexity partially explains why chemical mixtures remain understudied despite their relevance to public health. The methodological challenges in analyzing multiple simultaneous exposures have created significant knowledge gaps regarding their cumulative impacts on human populations. Traditional risk assessment approaches often fail to account for these interactive effects, potentially underestimating the true health burden of environmental chemical exposure in communities with multiple pollution sources.
+
+Colorado presents a particularly relevant setting for examining these relationships due to its unique environmental and public health landscape. The state is experiencing dramatic changes related to population growth, climate change, and expanded industrial activity, creating new and intensifying environmental health challenges (Murphey et al., 2021). These demographic and industrial shifts have placed increasing pressure on public health professionals attempting to address emerging environmental health issues with limited resources. According to research by Murphy and colleagues (2021), Colorado’s public health professionals identify indoor and outdoor air pollution among their top environmental health concerns, with oil and gas development recognized as a major contributing factor alongside transportation and extreme weather events.
+
+These statewide concerns are not merely theoretical – they are deeply rooted in tangible, historical, and ongoing examples of environmental contamination. One such case is the Ute-Ulay Townsite in Hinsdale County, Colorado, a historic mining complex located near Lake City in the San Juan Mountains (CDPHE, 2013). Mining activity at the Ute-Ulay dates back to the late 1800s, continuing intermittently into the 20th century, and leaving behind a legacy of industrial contamination. In the early 2000s, as the site became a candidate for revitalization through a Targeted Brownfields Assessment, environmental health officials raised concerns about potential hazards posed by legacy mine waste. A Phase II Environmental Site Assessment conducted by the Colorado Department of Public Health and Environment (CDPHE) identified significant contamination in the form of a 1,500-cubic-foot waste rock pile and a graded ore area, both containing elevated levels of lead – a toxic heavy metal with well-documented health risks. Given the site’s planned reuse for recreational and educational purposes, including interpretive tours and a hostel, the potential for increased public exposure heightened the urgency of health risk evaluations. In collaboration with the Agency for Toxic Substances and Disease Registry (ATSDR), the CDPHE initiated a health consultation to assess future exposure risks, particularly for children and adult workers, and to provide recommendations aimed at protecting public health.
+The first dataset we will be using is the asthma data set from Colorado Environmental Public Health Tracking. This data tells us the rates of hospitalizations and emergency department visits among Colorado residents per county per calendar year. However, this data set does not tell us about people who currently have or experience this condition or people who did not receive medical care for their asthma, therefore the data set only represents more severe cases. The next data set we are using is the air quality data set, also from the Colorado Environmental Public Health Tracking. This data gives us two metrics of yearly measurements of ozone per county and four metrics for fine particulate matter smaller than 2.5 microns. One limitation of this data set is that these measurements are taken at fixed points in the counties, which may not be indicative of the air quality in the whole county, as it can vary greatly. We are also using the childhood lead poisoning data set, from Colorado Environmental Public Health Tracking as well. This data ​​provides information about blood lead testing and blood lead levels among children born in the same year. However, it only gives us data for children who were tested, which tend to be at a higher risk for lead poisoning. In addition, we used the public drinking water quality data set from Colorado Environmental Public Health Tracking. This data gives us arsenic levels in the public drinking water of Colorado. Our final data set is from the Toxic Release Inventory from the EPA. This data gives us chemical classifications and names of persistent bioaccumulative toxins and quantities of toxic chemicals released on-site, transferred off-site, and a summary of chemical releases, recycling, energy recovery, and treatment.
+The method we have chosen to analyze our data is correlation analysis test. Using a Shaprio-Wilks normality test, we will decide if any of the data is skewed, and therefore needs to be transformed using the appropriate transformation. Then, we will apply a Pearson or Spearman correlation test to look at the correlation between our datasets, air quality and asthma rates, and water quality and lead poisoning. 
+
+Adeola, F. O. (2020). Global impact of chemicals and toxic substances on human health and the environment. Handbook of global health, 1-30.
+Carpenter, D. O., Arcaro, K., & Spink, D. C. (2002). Understanding the human health effects of chemical mixtures. Environmental health perspectives, 110(suppl 1), 25-42.
+Colorado Department of Public Health and Environment. (2013). Health Consultation: Public Health Implications of Exposure to Mining Related Surface Soil Contaminants.
+Murphy, J. A., Peel, J. L., Butts, T., McKenzie, L. M., & Litt, J. S. (2021). Understanding Emerging Environmental Health Concerns and Environmental Public Health–Tracking Priorities Among State and Local Professionals in Colorado. Journal of Public Health Management and Practice, 27(6), 598-606.
+Silins, I., & Högberg, J. (2011). Combined toxic exposures and human health: biomarkers of exposure and effect. International journal of environmental research and public health, 8(3), 629-647.
+
+```{r}
+library(ggplot2)
+```
+
+
+# Data 1: Toxic Release Inventory (TRI) Basic data
+```{r}
+url <- "https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/2023_US/csv"
+TRI_data <- read.csv(url, stringsAsFactors = FALSE)
+```
+```{r}
+url <- "https://www.epa.gov/system/files/documents/2024-08/basic_data_files_documentation_august_2024.pdf"
+```
+The TRI (Toxic Release Inventory) contains: 
+Chemical classifications and names of persistent bioaccumulative toxins
+State, national, federal facility, and tribal data files 
+Quantities of toxic chemicals released on-site, transferred off-site, and a summary of chemical releases, recycling, energy recovery, and treatment 
+
+# Data 2: Air quality data COEPHT
+```{r}
+air_quality_data <- read.csv("C:/Users/ainsl/Downloads/EPHT_REF_COEPHT Air Quality_2018_EN.xlsx - Ozone days over standard.csv")
+```
+The air quality data contains: 
+The kind of pollutant (PM 2.5 or Ozone/O3)
+The annual average concentration 
+The percentage of days in the year where the NAAQS was exceeded 
+The population living in the specific category
+The percentage of the state population living in that category 
+We will use this air quality data to see if some areas have worse air quality than others, and try and find a correlation between those areas and cases of respiratory and heart diseases
+
+# Data 3: Asthma
+```{r}
+asthma_data <- read.csv("C:/Users/ainsl/Downloads/EPHT_REF_COEPHT Asthma Data_2023_EN.xlsx - ED AA Asthma 2011-2023.csv")
+```
+This dataset contains asthma data:
+From 2011-2023
+The rates out of 10,000 people had asthma, a heart attack, and COPD
+The rates out of 100,000 people of had CO poisoning  and heat-related illnesses
+The age groups 
+We will use this data to try and prove there is a correlation between air quality and cases of asthma. We will try and see if a certain area that has poor air quality also has higher cases of respiratory and heart issues
+
+
+# Data 4: Lead Poisoning
+```{r}
+lead_poisoning_data <- read.csv("C:/Users/ainsl/Downloads/EPHT_REF_COEPHT Annual NCDM Wide 2007-2024_2025_EN.xlsx - Annual_NCDM_2007_to_2024.csv")
+```
+The lead poisoning data contains: 
+Age groups
+Population estimates (state and county) 
+Number of children tested for blood lead level (county and state) 
+The percentage of blood lead tests falling into designated ranges
+We will use this data to see if there are some areas with higher cases of lead poisoning and try and determine if there is a correlation between those areas with poor drinking water. 
+
+# Data 5: Public Drinking Water
+```{r}
+drinking_water_data <- read.csv("C:/Users/ainsl/Downloads/EPHT_REF_COEPHT Public Drinking Water Data_2023_EN.xlsx - Public Drinking Water Data.csv")
+```
+The public drinking water dataset contains: 
+The county
+Average concentration
+Info about the various public water systems where the data was collected 
+We will use this data to find areas with poor drinking water and see if there is also a higher than average amount of lead poisoning cases. 
+
+
+# Data visualization 
+# Air Quality data visualization - distribution of ozone days over standard
+```{r}
+ggplot(air_quality_data, aes(x = days_over_standard)) +
+  geom_histogram(binwidth = 5, fill = "rosybrown1", color = "black") +
+  labs(title = "Distribution of Ozone Days Over Standard", x = "Days Above Standard", y = "Frequency") +
+  theme_minimal()
+```
+
+# Public drinking water data visualization - max vs average concentration
+```{r}
+ggplot(drinking_water_data, aes(x = average_concentration, y = maximum_concentration)) +
+  geom_point(color = "palevioletred1", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "seagreen3", se = FALSE) +
+  labs(title = "Maximum vs Average Concentration", x = "Average Concentration", y = "Maximum Concentration") +
+  theme_minimal()
+```
+
+# Two Data Tests
+```{r}
+## Descriptive Summary Test:
+summary(air_quality_data$days_over_standard)
+
+## T-Test: Testing to see if average air quality varies between two example counties:
+
+library(dplyr)
+
+filtered_data <- air_quality_data %>%
+  filter(county %in% c("Denver", "Larimer")) %>%
+  select(county, days_over_standard)
+
+t_test_result <- t.test(days_over_standard ~ county, data = filtered_data)
+print(t_test_result)
+
+```
+# Data Cleaning
+For our initial data cleaning, the first step we’ll take will be to remove or handle missing values. We can use colSums to identify the number of NA values within the dataset, as well as na.omit to ensure that our dataset actually removes the NA values.
+
+We’ll also likely have to standardize the column names across the multiple databases we’re using, making them consistent and easier to work with. We can use the make.names or the rename functions to standardize any names that aren’t uniform throughout the datasets. 
+
+If we decide further into the project that we want to focus on specific variables, we can easily filter out irrelevant rows or columns that don’t matter to our dataset’s focus. We can also remove duplicates from the datasets to make sure that none of our data are repeating and contributing unequally to the visualizations.
+
+One of the biggest steps we’ll have to take to clean the data that became more apparent when we started doing tests and making visualizations is simply condensing the size of the datasets. The public water one, for example, was so large that it lagged in rendering and would slow down the rest of our project if we continued using it in this form.
+
+# Preliminary Methods
+We are thinking of using a correlation analysis to look at the relationships between the toxic chemical release and the public health outcomes. Specifically, we will look at the correlation between the air quality data and the asthma data and the water quality data and the lead poisoning data. In addition, we will add 2023 US data to look at other correlations with different types of toxic releases. It’s possible we might need some supplemental spatial data to see where the toxic releases are coming from and if they affect any communities more than others. This spatial data could also help explain why or why not there are correlations between the variables in our other data sets. One potential challenge I see is that our data sets are very large and have more information than we need to make these correlations. It might be a challenge to filter and clean the data sets simply because of their large size. Another challenge when looking at the air and water quality data sets is deciphering whether low quality can be attributed to genuine toxic release or just natural disturbances, such as wildfires or other natural occurrences. One potential challenge we can foresee with our selected methods is that the data might not be normally distributed. However, we can attempt to fix this with a transformation that is applicable to how the data is skewed. Our selected method, a correlation analysis test, will allow us to get to our final goal of looking at how air/water quality is related to public health in Colorado. Through using a Pearson or Spearman test, we can see what, if any, correlations there are between the indicators we have chosen, asthma and lead poisoning, and the quality of the environment. 
+
+
