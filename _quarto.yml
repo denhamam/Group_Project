@@ -1,0 +1,22 @@
+project: 
+  type: manuscript 
+  
+manuscript: 
+  article: Lab_7.qmd
+  
+author:
+  - name: "Ainsley Denham"
+    corresponding: true 
+  - name: "Melissa May"
+  - name: "Ava Madalinski"
+  
+format: 
+  html: 
+    comments: 
+      hypothesis: true
+    docx: default 
+    jats: default
+    
+execute: 
+  freeze: true
+    
