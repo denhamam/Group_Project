@@ -4,6 +4,7 @@ authors:
   - name: "Ainsley Denham" 
   - name: "Ava Medalinski"
   - name: "Melissa May"
+format: html
 ---
 
 # Methods 
@@ -72,7 +73,7 @@ library(ggplot2)
 asthma_data <- asthma_data[, !duplicated(colnames(asthma_data))]
 
 air_quality_data$county <- tolower(trimws(air_quality_data$county))
-colnames(asthma_data)[colnames(asthma_data) == "COUNTY"] <- "county"  # Fix uppercase if not already done
+colnames(asthma_data)[colnames(asthma_data) == "COUNTY"] <- "county"
 asthma_data$county <- tolower(trimws(asthma_data$county))
 
 asthma_data <- asthma_data[asthma_data$county != "statewide", ]

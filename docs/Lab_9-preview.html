@@ -284,7 +284,7 @@
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>asthma_data <span class="ot">&lt;-</span> asthma_data[, <span class="sc">!</span><span class="fu">duplicated</span>(<span class="fu">colnames</span>(asthma_data))]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>air_quality_data<span class="sc">$</span>county <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">trimws</span>(air_quality_data<span class="sc">$</span>county))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(asthma_data)[<span class="fu">colnames</span>(asthma_data) <span class="sc">==</span> <span class="st">"COUNTY"</span>] <span class="ot">&lt;-</span> <span class="st">"county"</span>  <span class="co"># Fix uppercase if not already done</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(asthma_data)[<span class="fu">colnames</span>(asthma_data) <span class="sc">==</span> <span class="st">"COUNTY"</span>] <span class="ot">&lt;-</span> <span class="st">"county"</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>asthma_data<span class="sc">$</span>county <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">trimws</span>(asthma_data<span class="sc">$</span>county))</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>asthma_data <span class="ot">&lt;-</span> asthma_data[asthma_data<span class="sc">$</span>county <span class="sc">!=</span> <span class="st">"statewide"</span>, ]</span>
@@ -783,7 +783,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":false,"closeEffect":"zoom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
